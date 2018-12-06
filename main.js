@@ -254,7 +254,7 @@ const server = http.createServer(function(req, res){
 	}
 });
 
-server.listen(port, host, function(){
+server.listen(port, function(){
 	console.log("Server hosted on " + host + ":" + port);
 });
 
