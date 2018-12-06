@@ -6,7 +6,7 @@ const consoleTable = require("console.table");
 const fs = require("fs");
 
 var host = "localhost";
-var port = process.env.port || 80;
+var port = process.env.PORT || 80;
 
 var index = {
 	html:	[],
