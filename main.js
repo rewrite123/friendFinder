@@ -5,7 +5,7 @@ const consoleTable = require("console.table");
 
 const fs = require("fs");
 
-var host = "52.20.109.77";
+var host = "localhost";
 var port = process.env.port || 80;
 
 var index = {
