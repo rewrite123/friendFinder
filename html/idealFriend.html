@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+	<title>This is a title</title>
+</head>
+
+<body>
+	<div class="container">
+	
+		<div class="jumbotron">
+			<h1>Your ideal friends are</h1>
+			<hr/>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">
+				<ol id="results">
+					
+				</ol>
+			</div>
+		</div>
+	</div>
+	
+	<script>
+		
+		var qs = new URLSearchParams(location.search);
+		console.log(qs.get("id"));
+		
+		$.post("/api/getUserById", JSON.stringify({id: qs.get("id")}) ).then(function(data) {
+			$.post("/api/getLikeness", JSON.stringify(data) ).then(function(d) {
+				console.log( d );
+				for(let i in d){
+					if(d[i].id != qs.get("id")){
+						var li = $("<li>");
+						var first = $("<p>")
+						first.text("First name: " + d[i].first);
+						var last = $("<p>")
+						last.text("Last name: " + d[i].last);
+						var gender = $("<p>")
+						gender.text("Gender: " + d[i].gender);
+						var additional = $("<p>");
+						additional.text("Additional information: " + d[i].additional);
+						
+						li.append(first);
+						li.append(last);
+						li.append(gender);
+						li.append(additional);
+						
+						$("#results").append(li);
+					}
+				}
+			});
+		});
+	</script>
+	
+</body>
+
+</html>
