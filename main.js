@@ -32,7 +32,7 @@ function initIndex(){
 	   of the file that we are serving. 
 	*/
 	var htmlPath = __dirname + "/html";
-	fs.reddir(htmlPath, function(err, files){
+	fs.readdir(htmlPath, function(err, files){
 		for(let i in files){
 			var f = fs.statSync(__dirname+"/html/"+files[i]);
 			if(f.isFile()){
@@ -51,7 +51,7 @@ function initIndex(){
 	   of the file that we are serving.
 	*/
 	var cssPath = __dirname + "/css";
-	fs.reddir(cssPath, function(err, files){
+	fs.readdir(cssPath, function(err, files){
 		for(let i in files){
 			var f = fs.statSync(__dirname+"/css/"+files[i]);
 			if(f.isFile()){
@@ -70,7 +70,7 @@ function initIndex(){
 	   of the file that we are serving.
 	*/
 	var jsPath = __dirname + "/js";
-	fs.reddir(jsPath, function(err, files){
+	fs.readdir(jsPath, function(err, files){
 		for(let i in files){
 			var f = fs.statSync(__dirname+"/js/"+files[i]);
 			if(f.isFile()){
@@ -89,7 +89,7 @@ function initIndex(){
 	   of the file that we are serving.
 	*/
 	var mediaPath = __dirname + "/media";
-	fs.reddir(mediaPath, function(err, files){
+	fs.readdir(mediaPath, function(err, files){
 		for(let i in files){
 			var f = fs.statSync(__dirname+"/media/"+files[i]);
 			if(f.isFile()){
@@ -124,7 +124,7 @@ function initIndex(){
 	   connection after doing whatever their job is. 
 	*/
 	var htmlPath = __dirname + "/api";
-	fs.reddir(htmlPath, function(err, files){
+	fs.readdir(htmlPath, function(err, files){
 		for(let i in files){
 			var f = fs.statSync(__dirname+"/api/"+files[i]);
 			if(f.isFile()){
@@ -142,7 +142,7 @@ initIndex();
 
 /* This helps add all the html files into index.html */
 function initIndexHtmlHelper(path){
-	fs.reddir(path, function(err, files){
+	fs.readdir(path, function(err, files){
 		for(let i in files){
 			var f = fs.statSync(path+"/"+files[i]);
 			if(f.isFile()){
@@ -159,7 +159,7 @@ function initIndexHtmlHelper(path){
 
 /* This helps add all the css files into index.css */
 function initIndexCssHelper(path){
-	fs.reddir(path, function(err, files){
+	fs.readdir(path, function(err, files){
 		for(let i in files){
 			var f = fs.statSync(path+"/"+files[i]);
 			if(f.isFile()){
@@ -176,7 +176,7 @@ function initIndexCssHelper(path){
 
 /* This helps add all the js files into index.js */
 function initIndexJsHelper(path){
-	fs.reddir(path, function(err, files){
+	fs.readdir(path, function(err, files){
 		for(let i in files){
 			var f = fs.statSync(path+"/"+files[i]);
 			if(f.isFile()){
@@ -193,7 +193,7 @@ function initIndexJsHelper(path){
 
 /* This helps add all the media files into index.media */
 function initIndexMediaHelper(path){
-	fs.reddir(path, function(err, files){
+	fs.readdir(path, function(err, files){
 		for(let i in files){
 			var f = fs.statSync(path+"/"+files[i]);
 			if(f.isFile()){
@@ -210,7 +210,7 @@ function initIndexMediaHelper(path){
 
 /* This helps add all the api js files into index.api */
 function initIndexApiHelper(path){
-	fs.reddir(path, function(err, files){
+	fs.readdir(path, function(err, files){
 		for(let i in files){
 			var f = fs.statSync(path+"/"+files[i]);
 			if(f.isFile()){
