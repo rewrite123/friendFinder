@@ -1,6 +1,7 @@
 var server = require("../../main.js");
 var consoleTable = require("console.table");
 
+/* Just returns the user based on the id recieved. */
 function main(req, res){
 	server.extractJSONFromRequest(req).then(function(data){
 		res.setHeader('Content-Type', 'application/json');

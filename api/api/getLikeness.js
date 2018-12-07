@@ -1,6 +1,7 @@
 var server = require("../../main.js");
 var consoleTable = require("console.table");
 
+/*  */
 function main(req, res){
 	server.extractJSONFromRequest(req).then(function(data){
 		res.setHeader('Content-Type', 'application/json');

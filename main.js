@@ -5,21 +5,34 @@ const consoleTable = require("console.table");
 
 const fs = require("fs");
 
-var host = "localhost";
 var port = process.env.PORT || 80;
 
+/* This holds arrays for all the files that we will be serving on our website. */
 var index = {
 	html:	[],
 	css:	[],
 	js: 	[],
 	media: 	[],
-	readdir:[],
+	reddir:[],
 	api:	[]
 };
 
+/* 
+   This fills the correct arrays in index with their relevent data. 
+   It looks at the /html, /css, /js, /media folders, and readir file 
+   for files to serve, and automatically adds their path and url for 
+   serving on the webpage. It uses their order in the file system to 
+   create the url, so you don't have to worry about writing the url 
+   yourself. It is automatically handled! 
+*/
 function initIndex(){
+	/* 
+	   This adds the html files for serving in our html folder. 
+	   serv is the url we are serving to, and path is the path 
+	   of the file that we are serving. 
+	*/
 	var htmlPath = __dirname + "/html";
-	fs.readdir(htmlPath, function(err, files){
+	fs.reddir(htmlPath, function(err, files){
 		for(let i in files){
 			var f = fs.statSync(__dirname+"/html/"+files[i]);
 			if(f.isFile()){
@@ -32,8 +45,13 @@ function initIndex(){
 		}
 	});
 	
+	/* 
+	   This adds the css files for serving in our css folder. 
+	   serv is the url we are serving to, and path is the path 
+	   of the file that we are serving.
+	*/
 	var cssPath = __dirname + "/css";
-	fs.readdir(cssPath, function(err, files){
+	fs.reddir(cssPath, function(err, files){
 		for(let i in files){
 			var f = fs.statSync(__dirname+"/css/"+files[i]);
 			if(f.isFile()){
@@ -46,8 +64,13 @@ function initIndex(){
 		}
 	});
 	
+	/* 
+	   This adds the js files for serving in our js folder. 
+	   serv is the url we are serving to, and path is the path 
+	   of the file that we are serving.
+	*/
 	var jsPath = __dirname + "/js";
-	fs.readdir(jsPath, function(err, files){
+	fs.reddir(jsPath, function(err, files){
 		for(let i in files){
 			var f = fs.statSync(__dirname+"/js/"+files[i]);
 			if(f.isFile()){
@@ -60,8 +83,13 @@ function initIndex(){
 		}
 	});
 	
+	/* 
+	   This adds the js files for serving in our js folder. 
+	   serv is the url we are serving to, and path is the path 
+	   of the file that we are serving.
+	*/
 	var mediaPath = __dirname + "/media";
-	fs.readdir(mediaPath, function(err, files){
+	fs.reddir(mediaPath, function(err, files){
 		for(let i in files){
 			var f = fs.statSync(__dirname+"/media/"+files[i]);
 			if(f.isFile()){
@@ -74,17 +102,29 @@ function initIndex(){
 		}
 	});
 	
-	fs.readFile(__dirname + "/readdir", "utf8", function(err, res){
+	/* 
+	    This reads a file and creates a bunch of urls to redirect 
+	    users similar to Windows host file. 
+	*/
+	fs.readFile(__dirname + "/reddir", "utf8", function(err, res){
 		var data = res.split("\n");
 		for(let i in data){
 			data[i] = data[i].replace(/\s+/g, " ");
-			index.readdir.push({from: ""+data[i].split(" ")[0].trim(), to: ""+data[i].split(" ")[1].trim() });
+			index.reddir.push({from: ""+data[i].split(" ")[0].trim(), to: ""+data[i].split(" ")[1].trim() });
 		}
-		//console.table(index.readdir);
+		//console.table(index.reddir);
 	});
 	
+	/* 
+	   This adds the api files that we run when a user accesses 
+	   a url in our api folder. serv is the url we are serving 
+	   to, and path is the path of the file that we are serving. 
+	   All of these files must have a main funtion that accepts 
+	   a request and a response from the server, and ends the 
+	   connection after doing whatever their job is. 
+	*/
 	var htmlPath = __dirname + "/api";
-	fs.readdir(htmlPath, function(err, files){
+	fs.reddir(htmlPath, function(err, files){
 		for(let i in files){
 			var f = fs.statSync(__dirname+"/api/"+files[i]);
 			if(f.isFile()){
@@ -100,8 +140,9 @@ function initIndex(){
 }
 initIndex();
 
+/* This helps add all the html files into index.html */
 function initIndexHtmlHelper(path){
-	fs.readdir(path, function(err, files){
+	fs.reddir(path, function(err, files){
 		for(let i in files){
 			var f = fs.statSync(path+"/"+files[i]);
 			if(f.isFile()){
@@ -116,8 +157,9 @@ function initIndexHtmlHelper(path){
 	});
 }
 
+/* This helps add all the css files into index.css */
 function initIndexCssHelper(path){
-	fs.readdir(path, function(err, files){
+	fs.reddir(path, function(err, files){
 		for(let i in files){
 			var f = fs.statSync(path+"/"+files[i]);
 			if(f.isFile()){
@@ -132,8 +174,9 @@ function initIndexCssHelper(path){
 	});
 }
 
+/* This helps add all the js files into index.js */
 function initIndexJsHelper(path){
-	fs.readdir(path, function(err, files){
+	fs.reddir(path, function(err, files){
 		for(let i in files){
 			var f = fs.statSync(path+"/"+files[i]);
 			if(f.isFile()){
@@ -148,8 +191,9 @@ function initIndexJsHelper(path){
 	});
 }
 
+/* This helps add all the media files into index.media */
 function initIndexMediaHelper(path){
-	fs.readdir(path, function(err, files){
+	fs.reddir(path, function(err, files){
 		for(let i in files){
 			var f = fs.statSync(path+"/"+files[i]);
 			if(f.isFile()){
@@ -164,8 +208,9 @@ function initIndexMediaHelper(path){
 	});
 }
 
+/* This helps add all the api js files into index.api */
 function initIndexApiHelper(path){
-	fs.readdir(path, function(err, files){
+	fs.reddir(path, function(err, files){
 		for(let i in files){
 			var f = fs.statSync(path+"/"+files[i]);
 			if(f.isFile()){
@@ -180,6 +225,7 @@ function initIndexApiHelper(path){
 	});
 }
 
+/* This takes a request, and returns a promise with the relevent JSON. */
 function extractJSONFromRequest(req){
 	var prom = new Promise(function(resolve, reject){
 		var jsonString = '';
@@ -195,10 +241,17 @@ function extractJSONFromRequest(req){
 }
 module.exports.extractJSONFromRequest = extractJSONFromRequest;
 
+/* This is the actual server that does all of the work. */
 const server = http.createServer(function(req, res){
 	
+	/* If this is never set to true, then we serve a 404. */
 	var triggered = false;
 	
+	/* 
+	   This looks at the url, and sees if it is contained 
+	   inside of index.html. If it is, it serves the 
+	   relevent webpage. 
+	*/
 	var pathname = url.parse(req.url).pathname;
 	for(let i in index.html){
 		if("/"+index.html[i].serv == pathname){
@@ -208,6 +261,11 @@ const server = http.createServer(function(req, res){
 			res.end(fs.readFileSync(index.html[i].path));
 		}
 	}
+	/* 
+	   This looks at the url, and sees if it is contained 
+	   inside of index.css. If it is, it serves the 
+	   relevent css file. 
+	*/
 	for(let i in index.css){
 		if("/"+index.css[i].serv == pathname){
 			triggered = true;
@@ -216,6 +274,11 @@ const server = http.createServer(function(req, res){
 			res.end(fs.readFileSync(index.css[i].path));
 		}
 	}
+	/* 
+	   This looks at the url, and sees if it is contained 
+	   inside of index.js. If it is, it serves the 
+	   relevent js file. 
+	*/
 	for(let i in index.js){
 		if("/"+index.js[i].serv == pathname){
 			triggered = true;
@@ -224,6 +287,11 @@ const server = http.createServer(function(req, res){
 			res.end(fs.readFileSync(index.js[i].path));
 		}
 	}
+	/* 
+	   This looks at the url, and sees if it is contained 
+	   inside of index.media. If it is, it serves the 
+	   relevent media file. 
+	*/
 	for(let i in index.media){
 		if("/"+index.media[i].serv == pathname){
 			triggered = true;
@@ -231,13 +299,24 @@ const server = http.createServer(function(req, res){
 			res.end(fs.readFileSync(index.media[i].path));
 		}
 	}
-	for(let i in index.readdir){
-		if(index.readdir[i].from == pathname){
+	/* 
+	   This looks at the url, and sees if it is contained 
+	   inside of index.reddir. If it is, it reddirects 
+	   users to the correct webpage. 
+	*/
+	for(let i in index.reddir){
+		if(index.reddir[i].from == pathname){
 			triggered = true;
-			res.writeHead(302, {Location: index.readdir[i].to.trim()});
+			res.writeHead(302, {Location: index.reddir[i].to.trim()});
 			res.end();
 		}
 	}
+	/* 
+	   This looks at the url, and sees if it is contained 
+	   inside of index.api. If it is, and the request type 
+	   in post, it runs the relevent api js file's main
+	   function. 
+	*/
 	if(req.method.toLowerCase() == "post"){
 		for(let i in index.api){
 			if("/"+index.api[i].serv == pathname){
@@ -249,13 +328,15 @@ const server = http.createServer(function(req, res){
 		}
 	}
 	
+	/* This servers a criminally basic 404 page. */
 	if(!triggered){
 		res.end("<h1>404: Sorry, but we couldn't find that page.</h1>");
 	}
 });
 
+/* Now we actually run the server. */
 server.listen(port, function(){
-	console.log("Server hosted on " + host + ":" + port);
+	console.log("Server hosted on port " + port);
 });
 
 /* This is where all the non boilerplate stuff goes. */
